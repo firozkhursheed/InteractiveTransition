@@ -1,6 +1,10 @@
 # InteractiveTransition
 A sample project to learn interactive transition.
 
+
+![sample](./sample.gif)
+
+
 ## Setup
 
 run `pod install`
