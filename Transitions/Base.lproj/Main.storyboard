@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="yJE-5Z-8oC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="yJE-5Z-8oC">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -19,11 +19,11 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zvT-Sv-c7C">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="SSF-Pw-HQX">
                                     <size key="itemSize" width="50" height="50"/>
@@ -47,6 +47,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Movies" id="OHK-3g-4tc"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="collectionView" destination="zvT-Sv-c7C" id="9GO-OB-cng"/>
                         <segue destination="6pm-WD-39f" kind="show" identifier="homeToItemDetailSegue" id="obw-rW-Uc2"/>
@@ -59,23 +60,23 @@
         <!--Item Detail View Controller-->
         <scene sceneID="54g-Kb-XSb">
             <objects>
-                <viewController id="6pm-WD-39f" customClass="ItemDetailViewController" customModule="Transitions" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="6pm-WD-39f" customClass="ItemDetailViewController" customModule="Transitions" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MZ3-hx-33u"/>
                         <viewControllerLayoutGuide type="bottom" id="yQ2-1w-IkB"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="uKk-ud-XNR">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JY9-SI-WX4">
-                                <rect key="frame" x="0.0" y="64" width="375" height="256"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="256"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="256" id="AwX-aP-IOU"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cr1-2v-9PC">
-                                <rect key="frame" x="24" y="328" width="327" height="21"/>
+                                <rect key="frame" x="24" y="264" width="327" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -91,6 +92,8 @@
                             <constraint firstItem="JY9-SI-WX4" firstAttribute="top" secondItem="MZ3-hx-33u" secondAttribute="bottom" id="kkb-uh-MBm"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="itemImageView" destination="JY9-SI-WX4" id="iIU-Bc-rS5"/>
                         <outlet property="itemImageViewHeightLayoutConstraint" destination="AwX-aP-IOU" id="L5r-R5-040"/>
@@ -106,7 +109,8 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yJE-5Z-8oC" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NAH-Av-73v">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="NAH-Av-73v">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

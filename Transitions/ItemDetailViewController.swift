@@ -27,6 +27,6 @@ class ItemDetailViewController: UIViewController {
     itemImageView.image = item.image
     itemTitle.text = item.title
 
-    itemImageViewHeightLayoutConstraint.constant = item.image.height(for: itemImageView.frame.size.width)
+    itemImageViewHeightLayoutConstraint.constant = item.image.height(for: view.frame.size.width)
   }
 }

@@ -13,7 +13,9 @@ class HomeViewController: UIViewController {
 
   @IBOutlet weak var collectionView: UICollectionView!
 
+  var currentIndexPath: IndexPath!
   var items = [Item]()
+  let swipePercentDrivenInteractiveTransition = SwipePercentDrivenInteractiveTransition()
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -61,8 +63,10 @@ class HomeViewController: UIViewController {
     super.prepare(for: segue, sender: sender)
 
     if segue.identifier == "homeToItemDetailSegue" {
+      navigationController?.delegate = self
       let itemDetailViewController = segue.destination as! ItemDetailViewController
       itemDetailViewController.item = sender as! Item
+      swipePercentDrivenInteractiveTransition.wireTo(viewController: itemDetailViewController)
     }
   }
 }
@@ -81,6 +85,7 @@ extension HomeViewController: UICollectionViewDataSource {
 
 extension HomeViewController: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    currentIndexPath = indexPath
     let selectedItem = items[indexPath.row]
     performSegue(withIdentifier: "homeToItemDetailSegue", sender: selectedItem)
   }
@@ -94,5 +99,24 @@ extension HomeViewController: CHTCollectionViewDelegateWaterfallLayout {
     let item = items[indexPath.row]
     let height = item.image.height(for: collectionCellSize/2) + HomeCollectionViewCell.bottomPadding + HomeCollectionViewCell.labelHeight
     return CGSize(width: collectionCellSize / 2, height: height)
+  }
+}
+
+extension HomeViewController: UINavigationControllerDelegate {
+  func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    if fromVC is ItemDetailViewController || toVC is ItemDetailViewController {
+      let homeToItemDetailTransitionAnimator = HomeToItemDetailTransitionAnimator()
+      homeToItemDetailTransitionAnimator.isPresenting = operation == .push
+      swipePercentDrivenInteractiveTransition.homeToItemDetailTransitionAnimator = homeToItemDetailTransitionAnimator
+      if swipePercentDrivenInteractiveTransition.isInteractionInProgress { homeToItemDetailTransitionAnimator.isInteractiveTransition = true }
+
+      return homeToItemDetailTransitionAnimator
+    }
+
+    return nil
+  }
+
+  func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    return swipePercentDrivenInteractiveTransition.isInteractionInProgress ? swipePercentDrivenInteractiveTransition : nil
   }
 }
