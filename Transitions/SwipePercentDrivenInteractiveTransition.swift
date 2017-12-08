@@ -17,7 +17,9 @@ class SwipePercentDrivenInteractiveTransition: UIPercentDrivenInteractiveTransit
 
   func wireTo(viewController: UIViewController) {
     self.viewController = viewController
-    prepareGestureRecognizer(in: viewController.view)
+    DispatchQueue.main.async {
+      self.prepareGestureRecognizer(in: viewController.view)
+    }
   }
 
   private func prepareGestureRecognizer(in view: UIView) {

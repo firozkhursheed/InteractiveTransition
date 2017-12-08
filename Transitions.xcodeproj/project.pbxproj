@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		696998D5A339549CBC209626 /* Pods_Transitions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6AFCBC08AA86AA07F67B62C /* Pods_Transitions.framework */; };
+		D63252D31FD90A9C00FD7D88 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63252D21FD90A9C00FD7D88 /* UIColorExtension.swift */; };
+		D63252D51FD9BF6800FD7D88 /* GradientHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63252D41FD9BF6800FD7D88 /* GradientHelper.swift */; };
+		D63252D71FD9CBCF00FD7D88 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63252D61FD9CBCF00FD7D88 /* BaseViewController.swift */; };
 		D683D9711F245E7B009C8E2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D683D9701F245E7B009C8E2E /* AppDelegate.swift */; };
 		D683D9761F245E7B009C8E2E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D683D9741F245E7B009C8E2E /* Main.storyboard */; };
 		D683D9781F245E7B009C8E2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D683D9771F245E7B009C8E2E /* Assets.xcassets */; };
@@ -26,6 +29,9 @@
 /* Begin PBXFileReference section */
 		46737F648CE802705D65BAB3 /* Pods-Transitions.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Transitions.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Transitions/Pods-Transitions.debug.xcconfig"; sourceTree = "<group>"; };
 		55D45012A706BCC8B054B5A3 /* Pods-Transitions.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Transitions.release.xcconfig"; path = "Pods/Target Support Files/Pods-Transitions/Pods-Transitions.release.xcconfig"; sourceTree = "<group>"; };
+		D63252D21FD90A9C00FD7D88 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		D63252D41FD9BF6800FD7D88 /* GradientHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientHelper.swift; sourceTree = "<group>"; };
+		D63252D61FD9CBCF00FD7D88 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		D683D96D1F245E7B009C8E2E /* Transitions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Transitions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D683D9701F245E7B009C8E2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D683D9751F245E7B009C8E2E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -105,6 +111,7 @@
 				D683D98C1F245F2C009C8E2E /* Model */,
 				D6DD08571F24824700A6F5B2 /* Supporting Files */,
 				D683D9841F245ED8009C8E2E /* ViewControllers */,
+				D63252D41FD9BF6800FD7D88 /* GradientHelper.swift */,
 			);
 			path = Transitions;
 			sourceTree = "<group>";
@@ -112,6 +119,7 @@
 		D683D9841F245ED8009C8E2E /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				D63252D61FD9CBCF00FD7D88 /* BaseViewController.swift */,
 				D683D9821F245EAD009C8E2E /* HomeViewController.swift */,
 				D683D9901F246928009C8E2E /* ItemDetailViewController.swift */,
 			);
@@ -138,6 +146,7 @@
 		D683D98F1F245F43009C8E2E /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				D63252D21FD90A9C00FD7D88 /* UIColorExtension.swift */,
 				D683D98D1F245F3C009C8E2E /* UIViewExtension.swift */,
 				D683D9921F24767F009C8E2E /* UIImageExtension.swift */,
 			);
@@ -197,6 +206,7 @@
 				TargetAttributes = {
 					D683D96C1F245E7B009C8E2E = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 98EYNEVC83;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
@@ -287,13 +297,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D63252D51FD9BF6800FD7D88 /* GradientHelper.swift in Sources */,
 				D683D98E1F245F3C009C8E2E /* UIViewExtension.swift in Sources */,
 				D683D98B1F245F28009C8E2E /* Item.swift in Sources */,
 				D683D9931F24767F009C8E2E /* UIImageExtension.swift in Sources */,
 				D683D9911F246928009C8E2E /* ItemDetailViewController.swift in Sources */,
+				D63252D71FD9CBCF00FD7D88 /* BaseViewController.swift in Sources */,
 				D683D9711F245E7B009C8E2E /* AppDelegate.swift in Sources */,
 				D683D9831F245EAD009C8E2E /* HomeViewController.swift in Sources */,
 				D6DD085C1F248CEC00A6F5B2 /* SwipePercentDrivenInteractiveTransition.swift in Sources */,
+				D63252D31FD90A9C00FD7D88 /* UIColorExtension.swift in Sources */,
 				D683D9871F245EF1009C8E2E /* HomeCollectionViewCell.swift in Sources */,
 				D6DD08591F24829D00A6F5B2 /* HomeToItemDetailTransitionAnimator.swift in Sources */,
 			);
@@ -422,6 +435,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = 98EYNEVC83;
 				INFOPLIST_FILE = Transitions/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = self.Transitions;
@@ -438,6 +452,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = 98EYNEVC83;
 				INFOPLIST_FILE = Transitions/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = self.Transitions;
