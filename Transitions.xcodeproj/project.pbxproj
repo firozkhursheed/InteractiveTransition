@@ -80,6 +80,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D61B02271FDB2A7000EB847F /* StoryBoards */ = {
+			isa = PBXGroup;
+			children = (
+				D683D9791F245E7B009C8E2E /* LaunchScreen.storyboard */,
+				D683D9741F245E7B009C8E2E /* Main.storyboard */,
+			);
+			name = StoryBoards;
+			sourceTree = "<group>";
+		};
+		D61B02281FDB2B3D00EB847F /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D63252D41FD9BF6800FD7D88 /* GradientHelper.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
 		D683D9641F245E7B009C8E2E = {
 			isa = PBXGroup;
 			children = (
@@ -106,12 +123,11 @@
 				D683D9771F245E7B009C8E2E /* Assets.xcassets */,
 				D683D9891F245EF9009C8E2E /* Cells */,
 				D683D98F1F245F43009C8E2E /* Extension */,
-				D683D9791F245E7B009C8E2E /* LaunchScreen.storyboard */,
-				D683D9741F245E7B009C8E2E /* Main.storyboard */,
+				D61B02281FDB2B3D00EB847F /* Helpers */,
 				D683D98C1F245F2C009C8E2E /* Model */,
+				D61B02271FDB2A7000EB847F /* StoryBoards */,
 				D6DD08571F24824700A6F5B2 /* Supporting Files */,
 				D683D9841F245ED8009C8E2E /* ViewControllers */,
-				D63252D41FD9BF6800FD7D88 /* GradientHelper.swift */,
 			);
 			path = Transitions;
 			sourceTree = "<group>";
