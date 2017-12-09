@@ -9,10 +9,11 @@
 import UIKit
 import CHTCollectionViewWaterfallLayout
 
-class HomeViewController: UIViewController {
+class HomeViewController: BaseViewController {
 
   @IBOutlet weak var collectionView: UICollectionView!
-
+  @IBOutlet weak var shadowTopView: UIView!
+  
   var currentIndexPath: IndexPath!
   var items = [Item]()
   let swipePercentDrivenInteractiveTransition = SwipePercentDrivenInteractiveTransition()
@@ -21,36 +22,61 @@ class HomeViewController: UIViewController {
     super.viewDidLoad()
 
     setupItems()
+    setupGradientShadow()
     setupCollectionView()
+    setupNavigationBar()
+  }
+
+  override func snapshotViewForTransition() -> UIView {
+    if let cell = collectionView.cellForItem(at: currentIndexPath) as? HomeCollectionViewCell {
+      let snapShotView = cell.snapshot()
+      let leftUpperPoint = cell.imageView.convert(CGPoint.zero, to: view)
+      snapShotView.frame.origin = leftUpperPoint
+      return snapShotView
+    }
+    
+    return UIView()
+  }
+  
+  override func snapshotViewInitialFrame() -> CGRect {
+    if let cell = collectionView.cellForItem(at: currentIndexPath) as? HomeCollectionViewCell {
+      let cellOrigin = cell.imageView.convert(CGPoint.zero, to: view)
+      return CGRect(origin: cellOrigin, size: cell.imageView.frame.size)
+    }
+    
+    return .zero
   }
 
   func setupItems() {
-    let item1 = Item(image: #imageLiteral(resourceName: "Apesposter"), title: "War for the planet of the apes")
-    let item2 = Item(image: #imageLiteral(resourceName: "Dangal"), title: "Dangal")
-    let item3 = Item(image: #imageLiteral(resourceName: "Despicable-me-3"), title: "Despicable me 3")
-    let item4 = Item(image: #imageLiteral(resourceName: "Doctor-strange"), title: "Doctor strange")
-    let item5 = Item(image: #imageLiteral(resourceName: "Jagga-jasoos"), title: "Jagga jasoos")
-    let item6 = Item(image: #imageLiteral(resourceName: "La-la-land"), title: "La la land")
-    let item7 = Item(image: #imageLiteral(resourceName: "Me-before-you"), title: "Me before you")
-    let item8 = Item(image: #imageLiteral(resourceName: "Moana"), title: "Moana")
-    let item9 = Item(image: #imageLiteral(resourceName: "Now-you-see-me-2"), title: "Now you see me 2")
-    let item10 = Item(image: #imageLiteral(resourceName: "Spider-man-homecoming"), title: "Spiderman: Homecoming")
+    items.append(Item(image: #imageLiteral(resourceName: "Apesposter"), title: "War for the planet of the apes", genre: "Science Fiction"))
+    items.append(Item(image: #imageLiteral(resourceName: "Dangal"), title: "Dangal", genre: "Biographical"))
+    items.append(Item(image: #imageLiteral(resourceName: "Despicable-me-3"), title: "Despicable me 3", genre: "Animation"))
+    items.append(Item(image: #imageLiteral(resourceName: "Doctor-strange"), title: "Doctor strange", genre: "Adventure"))
+    items.append(Item(image: #imageLiteral(resourceName: "Jagga-jasoos"), title: "Jagga jasoos", genre: "Adventure"))
+    items.append(Item(image: #imageLiteral(resourceName: "La-la-land"), title: "La la land", genre: "Romance"))
+    items.append(Item(image: #imageLiteral(resourceName: "Me-before-you"), title: "Me before you", genre: "Romance"))
+    items.append(Item(image: #imageLiteral(resourceName: "Moana"), title: "Moana", genre: "Animation"))
+    items.append(Item(image: #imageLiteral(resourceName: "Now-you-see-me-2"), title: "Now you see me 2", genre: "Adventure"))
+    items.append(Item(image: #imageLiteral(resourceName: "Spider-man-homecoming"), title: "Spiderman: Homecoming", genre: "Adventure"))
+  }
 
+  private func setupGradientShadow() {
+    let gradient = CAGradientLayer()
+    gradient.frame = shadowTopView.bounds
+    gradient.colors = [UIColor.gray.withAlphaComponent(0.6).cgColor, UIColor.clear.cgColor]
+    shadowTopView.layer.addSublayer(gradient)
+  }
+  
+  private func setupNavigationBar() {
+    let navBar = navigationController?.navigationBar
 
-    items.append(item1)
-    items.append(item2)
-    items.append(item3)
-    items.append(item4)
-    items.append(item5)
-    items.append(item6)
-    items.append(item7)
-    items.append(item8)
-    items.append(item9)
-    items.append(item10)
+    navBar?.tintColor = .white
+    navBar?.setBackgroundImage(UIImage(), for: .default)
+    navBar?.shadowImage = UIImage()
+    navBar?.isTranslucent = true
   }
 
   func setupCollectionView() {
-//    collectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: "HomeCollectionViewCell")
     let nib = UINib(nibName: "HomeCollectionViewCell", bundle: nil)
     collectionView.register(nib, forCellWithReuseIdentifier: "HomeCollectionViewCell")
 
@@ -98,7 +124,7 @@ extension HomeViewController: CHTCollectionViewDelegateWaterfallLayout {
 
     let item = items[indexPath.row]
     let height = item.image.height(for: collectionCellSize/2) + HomeCollectionViewCell.bottomPadding + HomeCollectionViewCell.labelHeight
-    return CGSize(width: collectionCellSize / 2, height: height)
+    return CGSize(width: (collectionCellSize / 2), height: height)
   }
 }
 

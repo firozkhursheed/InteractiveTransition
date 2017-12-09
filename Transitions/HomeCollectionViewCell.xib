@@ -1,45 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Helvetica.ttc">
+            <string>Helvetica-Bold</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HomeCollectionViewCell" id="gTV-IL-0wX" customClass="HomeCollectionViewCell" customModule="Transitions" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="173" height="224"/>
+            <rect key="frame" x="0.0" y="0.0" width="200" height="300"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="173" height="224"/>
+                <rect key="frame" x="0.0" y="0.0" width="200" height="300"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UoO-4Z-Ivw">
-                        <rect key="frame" x="0.0" y="0.0" width="173" height="163"/>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Idu-RR-MAk">
-                        <rect key="frame" x="0.0" y="163" width="173" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ojj-KW-Vac">
+                        <rect key="frame" x="4" y="4" width="192" height="292"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UoO-4Z-Ivw">
+                                <rect key="frame" x="0.0" y="0.0" width="192" height="228.5"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="1X9-0D-CxL">
+                                <rect key="frame" x="0.0" y="232.5" width="192" height="51.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Idu-RR-MAk">
+                                        <rect key="frame" x="8" y="8" width="47.5" height="21"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
+                                        <color key="textColor" red="0.34901960784313724" green="0.40392156862745099" blue="0.44705882352941173" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CnD-hq-PLo">
+                                        <rect key="frame" x="8" y="29" width="31" height="14.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" red="0.58823529411764708" green="0.58823529411764708" blue="0.58823529411764708" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="8" trailing="8"/>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="1X9-0D-CxL" secondAttribute="bottom" constant="8" id="5Nv-5Q-wfK"/>
+                            <constraint firstItem="UoO-4Z-Ivw" firstAttribute="leading" secondItem="Ojj-KW-Vac" secondAttribute="leading" id="65a-Yr-sIT"/>
+                            <constraint firstAttribute="trailing" secondItem="1X9-0D-CxL" secondAttribute="trailing" id="BS7-tv-blt"/>
+                            <constraint firstItem="1X9-0D-CxL" firstAttribute="leading" secondItem="Ojj-KW-Vac" secondAttribute="leading" id="X5I-Ky-9on"/>
+                            <constraint firstItem="1X9-0D-CxL" firstAttribute="top" secondItem="UoO-4Z-Ivw" secondAttribute="bottom" constant="4" id="quZ-du-XXS"/>
+                            <constraint firstAttribute="trailing" secondItem="UoO-4Z-Ivw" secondAttribute="trailing" id="xZp-yY-8uO"/>
+                            <constraint firstItem="UoO-4Z-Ivw" firstAttribute="top" secondItem="Ojj-KW-Vac" secondAttribute="top" id="y1i-Ef-AMS"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="4"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="Idu-RR-MAk" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Kw3-GS-MPu"/>
-                <constraint firstItem="UoO-4Z-Ivw" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="RzC-g5-gva"/>
-                <constraint firstItem="Idu-RR-MAk" firstAttribute="top" secondItem="UoO-4Z-Ivw" secondAttribute="bottom" id="cab-Ar-ZtR"/>
-                <constraint firstAttribute="trailing" secondItem="UoO-4Z-Ivw" secondAttribute="trailing" id="jFf-5B-RF3"/>
-                <constraint firstAttribute="bottom" secondItem="Idu-RR-MAk" secondAttribute="bottom" constant="40" id="n5l-Ig-PtO"/>
-                <constraint firstAttribute="trailing" secondItem="Idu-RR-MAk" secondAttribute="trailing" id="vM0-T2-lMg"/>
-                <constraint firstItem="UoO-4Z-Ivw" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="xzL-6x-DJC"/>
+                <constraint firstItem="Ojj-KW-Vac" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="4" id="4KS-wJ-6B0"/>
+                <constraint firstAttribute="trailing" secondItem="Ojj-KW-Vac" secondAttribute="trailing" constant="4" id="Jvf-Ds-j6m"/>
+                <constraint firstAttribute="bottom" secondItem="Ojj-KW-Vac" secondAttribute="bottom" constant="4" id="PGS-We-yTQ"/>
+                <constraint firstItem="Ojj-KW-Vac" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="4" id="hVA-DP-jlR"/>
             </constraints>
             <size key="customSize" width="173" height="224"/>
             <connections>
+                <outlet property="genreLabel" destination="CnD-hq-PLo" id="DIk-Cr-zBL"/>
                 <outlet property="imageView" destination="UoO-4Z-Ivw" id="wA0-OM-3sn"/>
                 <outlet property="titleLabel" destination="Idu-RR-MAk" id="Sbg-MY-KmI"/>
             </connections>

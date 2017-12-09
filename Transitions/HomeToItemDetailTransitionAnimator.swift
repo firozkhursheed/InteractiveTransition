@@ -14,16 +14,17 @@ enum TransitionState {
 }
 
 class HomeToItemDetailTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
-  
-  let animationDuration = 0.6
+
+  let animationDuration = 0.3
   var isPresenting = false
   var isInteractiveTransition = false
 
-  var dismissMediaView: UIView?
+  var interactiveSnapshotView: UIView?
   var dismissContainerView: UIView?
+  var dismissToView: UIView?
   var dismissInitialLocationOffset = CGPoint.zero
-  var dismissMediaViewFinalFrame: CGRect?
-  var scaleValue: CGFloat?
+  var interactiveSnapshotViewFinalFrame: CGRect?
+  var scaleDownTransformValue: CGFloat?
   
   // MARK: - UIViewControllerAnimatedTransitioning
   func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
@@ -35,116 +36,106 @@ class HomeToItemDetailTransitionAnimator: NSObject, UIViewControllerAnimatedTran
   }
   
   func animatePresentingTransition(using transitionContext: UIViewControllerContextTransitioning) {
-    let fromViewController = transitionContext.viewController(forKey: .from)
-    let fromView = transitionContext.view(forKey: .from)
-    let toView = transitionContext.view(forKey: .to)
+    guard let fromViewController = transitionContext.viewController(forKey: .from) as? BaseViewController else { return }
+    guard let toViewController = transitionContext.viewController(forKey: .to) as? BaseViewController else { return }
+    guard let fromView = transitionContext.view(forKey: .from) else { return }
+    guard let toView = transitionContext.view(forKey: .to) else { return }
+
     let containerView = transitionContext.containerView
-    let topOffset = CGFloat(64)
+    let snapshotView = fromViewController.snapshotViewForTransition()
+    let snapshotViewOrigin = snapshotView.frame.origin
 
-    var snapShotView: UIView!
-    var leftUpperPoint: CGPoint!
-    if let homeViewController = fromViewController as? HomeViewController {
-      if let cell = homeViewController.collectionView.cellForItem(at: homeViewController.currentIndexPath) as? HomeCollectionViewCell {
-        leftUpperPoint = cell.imageView.convert(CGPoint.zero, to: containerView)
-        snapShotView = cell.imageView.snapshotView(afterScreenUpdates: true) ?? UIView()
-        snapShotView.frame.origin = leftUpperPoint
-      }
-    }
-
-    containerView.backgroundColor = UIColor.white
-    containerView.addSubview(toView!)
-    containerView.addSubview(snapShotView)
-
-    toView?.alpha = 0
-    toView?.frame = CGRect(x: toView!.frame.origin.x, y: topOffset, width: toView!.frame.width, height: containerView.frame.height - topOffset)
-
-    let transformValue = UIScreen.main.bounds.size.width / snapShotView.frame.width
+    containerView.backgroundColor = UIColor.mercury
+    containerView.addSubview(toView)
+    containerView.addSubview(snapshotView)
+    
+    addNavigationGradientLayer(to: containerView, from: toViewController)
+    toView.alpha = 0
+    
+    let toFrame = toViewController.snapshotViewInitialFrame()
+    let xTransformValue = toFrame.width / snapshotView.frame.width
+    let yTransformValue = toFrame.height / snapshotView.frame.height
     
     UIView.animate(withDuration: animationDuration, delay: 0, options: .curveEaseInOut, animations: {
-      snapShotView.transform = CGAffineTransform(scaleX: transformValue, y: transformValue)
-      snapShotView.frame = CGRect(x: 0, y: topOffset, width:  snapShotView.frame.width, height: snapShotView.frame.height)
+      snapshotView.transform = CGAffineTransform(scaleX: xTransformValue, y: yTransformValue)
+      snapshotView.frame = CGRect(x: toFrame.origin.x, y: toFrame.origin.y, width: snapshotView.frame.width, height: snapshotView.frame.height)
       
-      fromView?.transform = CGAffineTransform(scaleX: transformValue, y: transformValue)
-      fromView?.frame = CGRect(x: -(leftUpperPoint.x) * transformValue,
-                                             y: -(leftUpperPoint.y - topOffset) * transformValue + topOffset,
-                                             width: fromView!.frame.size.width,
-                                             height: fromView!.frame.size.height)
-      fromView?.alpha = 0
+      fromView.transform = CGAffineTransform(scaleX: xTransformValue, y: yTransformValue)
+      fromView.frame = CGRect(x: -(snapshotViewOrigin.x) * xTransformValue + toFrame.origin.x,
+                              y: -(snapshotViewOrigin.y) * yTransformValue + toFrame.origin.y,
+                              width: fromView.frame.size.width,
+                              height: fromView.frame.size.height)
+      fromView.alpha = 0
     }) { (_) in
-      fromView?.alpha = 1.0
-      toView?.alpha = 1.0
-      snapShotView.removeFromSuperview()
+      fromView.alpha = 1.0
+      toView.alpha = 1.0
+      fromView.transform = .identity
+      snapshotView.removeFromSuperview()
       transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
     }
   }
   
   func animateDismissingTransition(using transitionContext: UIViewControllerContextTransitioning) {
-    let fromViewController = transitionContext.viewController(forKey: .from)
-    let fromView = transitionContext.view(forKey: .from)
-    let fromViewInitialFrame = fromView?.frame
-    let toViewController = transitionContext.viewController(forKey: .to)
-    let toView = transitionContext.view(forKey: .to)
+    guard let fromViewController = transitionContext.viewController(forKey: .from) as? BaseViewController else { return }
+    guard let toViewController = transitionContext.viewController(forKey: .to) as? BaseViewController else { return }
+    guard let fromView = transitionContext.view(forKey: .from) else { return }
+    guard let toView = transitionContext.view(forKey: .to) else { return }
+    let fromViewInitialFrame = fromView.frame
     let containerView = transitionContext.containerView
-    let topOffset = CGFloat(64)
+
+    let snapshotView = fromViewController.snapshotViewForTransition()
+    let snapshotViewInitialFrame = fromViewController.snapshotViewInitialFrame()
+    let snapshotViewFinalFrame = toViewController.snapshotViewInitialFrame()
+
+    fromViewController.removeNavigationBarGradient()
     
-    var snapShotView: UIView!
-    if let itemDetailViewController = fromViewController as? ItemDetailViewController {
-      snapShotView = itemDetailViewController.itemImageView.snapshotView(afterScreenUpdates: true) ?? UIView()
-      snapShotView.frame.origin.y += topOffset
-    }
-
-    var finalFrame = CGRect.zero
-    if let homeViewController = toViewController as? HomeViewController {
-      if let cell = homeViewController.collectionView.cellForItem(at: homeViewController.currentIndexPath) as? HomeCollectionViewCell {
-        finalFrame.origin = cell.convert(CGPoint.zero, to: toView)
-        finalFrame.size = cell.imageView.frame.size
-        finalFrame.origin.y += topOffset
-        dismissMediaViewFinalFrame = finalFrame
-      } else {
-        return
-      }
-    }
-
     // Setup InteractiveGestureTransition
-    dismissMediaView = snapShotView
+    interactiveSnapshotView = snapshotView
     dismissContainerView = containerView
+    interactiveSnapshotViewFinalFrame = snapshotViewFinalFrame
+    dismissToView = toView
     
-    containerView.insertSubview(toView!, belowSubview: fromView!)
-    containerView.addSubview(snapShotView)
-    toView?.alpha = 0.0
+    let scaleUpTransformValue = snapshotViewInitialFrame.width / snapshotViewFinalFrame.width
+    toView.transform = CGAffineTransform(scaleX: scaleUpTransformValue, y: scaleUpTransformValue)
+    toView.frame.origin = CGPoint(x: -(snapshotViewFinalFrame.origin.x) * scaleUpTransformValue + snapshotViewInitialFrame.origin.x,
+                                  y: -(snapshotViewFinalFrame.origin.y) * scaleUpTransformValue + snapshotViewInitialFrame.origin.y)
+    
+    containerView.insertSubview(toView, belowSubview: fromView)
+    containerView.addSubview(snapshotView)
+    toView.alpha = 0.0
 
     prepareForTransition(state: .start, homeVC: toViewController as! HomeViewController, itemDetailVC: fromViewController as! ItemDetailViewController)
-    scaleValue = finalFrame.width / UIScreen.main.bounds.size.width
-    let scaledSize = CGSize(width: fromView!.frame.size.width * scaleValue!, height: fromView!.frame.size.height * scaleValue!)
+    scaleDownTransformValue = snapshotViewFinalFrame.width / snapshotViewInitialFrame.width
+    let scaledSize = CGSize(width: fromView.frame.size.width * scaleDownTransformValue!, height: fromView.frame.size.height * scaleDownTransformValue!)
 
     UIView.animateKeyframes(withDuration: animationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
       UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1/3) {
-        fromView?.alpha = 0.0
+        fromView.alpha = 0.0
       }
 
       let relativeDuration = self.isInteractiveTransition ? 0.5 : 1
       UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: relativeDuration, animations: {
-        toView?.transform = CGAffineTransform.identity
-        toView?.frame = CGRect(x: 0, y: topOffset, width: containerView.frame.width, height: containerView.frame.height - topOffset)
+        toView.transform = CGAffineTransform.identity
+        toView.frame = CGRect(x: 0, y: 0, width: containerView.frame.width, height: containerView.frame.height)
       })
 
       UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1) {
-        fromView?.transform = CGAffineTransform(scaleX: self.scaleValue!, y: self.scaleValue!)
-        fromView?.frame = CGRect(origin: finalFrame.origin, size: scaledSize)
+        fromView.transform = CGAffineTransform(scaleX: self.scaleDownTransformValue!, y: self.scaleDownTransformValue!)
+        fromView.frame = CGRect(origin: snapshotViewFinalFrame.origin, size: scaledSize)
         
         if !self.isInteractiveTransition {
-          snapShotView.transform = CGAffineTransform(scaleX: self.scaleValue!, y: self.scaleValue!)
-          snapShotView.frame = finalFrame
+          snapshotView.transform = CGAffineTransform(scaleX: self.scaleDownTransformValue!, y: self.scaleDownTransformValue!)
+          snapshotView.frame = snapshotViewFinalFrame
         }
         
-        toView?.alpha = self.isInteractiveTransition ? 0.8 : 1.0
+        toView.alpha = self.isInteractiveTransition ? 0.8 : 1.0
       }
     }) { (_) in
       self.prepareForTransition(state: .end, homeVC: toViewController as! HomeViewController, itemDetailVC: fromViewController as! ItemDetailViewController)
-      snapShotView.removeFromSuperview()
-      fromView?.frame = fromViewInitialFrame!
-      fromView?.alpha = 1.0
-      toView?.alpha = 1.0
+      snapshotView.removeFromSuperview()
+      fromView.frame = fromViewInitialFrame
+      fromView.alpha = 1.0
+      toView.alpha = 1.0
       
       transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
     }
@@ -152,29 +143,37 @@ class HomeToItemDetailTransitionAnimator: NSObject, UIViewControllerAnimatedTran
 
   func handlePanGesture(_ gestureRecognizer: UIPanGestureRecognizer, progress: CGFloat) {
     let location = gestureRecognizer.location(in: dismissContainerView)
-    if dismissMediaView != nil && dismissInitialLocationOffset == CGPoint.zero {
-      dismissInitialLocationOffset.x = location.x - dismissMediaView!.center.x
-      dismissInitialLocationOffset.y = location.y - dismissMediaView!.center.y
+    if interactiveSnapshotView != nil && dismissInitialLocationOffset == CGPoint.zero {
+      dismissInitialLocationOffset.x = location.x - interactiveSnapshotView!.center.x
+      dismissInitialLocationOffset.y = location.y - interactiveSnapshotView!.center.y
     }
     
-    if dismissMediaView != nil {
+    if interactiveSnapshotView != nil {
       switch gestureRecognizer.state {
       case .changed:
         var expectedLocation = CGPoint.zero
         expectedLocation.x = location.x - dismissInitialLocationOffset.x
         expectedLocation.y = location.y - dismissInitialLocationOffset.y
-        dismissMediaView?.center = expectedLocation
+        interactiveSnapshotView?.center = expectedLocation
         let transformFactor: CGFloat = -0.6
         let localTransform = (transformFactor * progress) + 1
-        self.dismissMediaView?.transform = CGAffineTransform(scaleX: localTransform, y: localTransform)
+        self.interactiveSnapshotView?.transform = CGAffineTransform(scaleX: localTransform, y: localTransform)
       case .ended:
         UIView.animate(withDuration: animationDuration / 2, animations: {
-          self.dismissMediaView?.transform = CGAffineTransform(scaleX: self.scaleValue!, y: self.scaleValue!)
-          self.dismissMediaView?.frame = self.dismissMediaViewFinalFrame!
+          self.interactiveSnapshotView?.transform = CGAffineTransform(scaleX: self.scaleDownTransformValue!, y: self.scaleDownTransformValue!)
+          self.interactiveSnapshotView?.frame = self.interactiveSnapshotViewFinalFrame!
+          self.dismissToView?.alpha = 1
         }, completion: nil)
       default:
         break
       }
+    }
+  }
+
+  private func addNavigationGradientLayer(to containerView: UIView, from viewController: UIViewController) {
+    if let navBar = viewController.navigationController?.navigationBar {
+      let gradient = GradientHelper.createNavigationBarGradient(with: CGRect(origin: .zero, size: CGSize(width: UIApplication.shared.statusBarFrame.width, height: UIApplication.shared.statusBarFrame.height + navBar.frame.height)))
+      containerView.layer.addSublayer(gradient)
     }
   }
 
