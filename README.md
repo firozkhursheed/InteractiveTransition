@@ -2,7 +2,7 @@
 A sample project to learn interactive transition.
 
 
-![sample](./sample.gif)
+![sample](./new_sample.gif)
 
 
 ## Setup
