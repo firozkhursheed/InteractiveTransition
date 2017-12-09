@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="yJE-5Z-8oC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="yJE-5Z-8oC">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -51,7 +51,7 @@
                             <constraint firstItem="qZT-5U-kdY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="HyT-Q6-8f9"/>
                             <constraint firstAttribute="trailing" secondItem="qZT-5U-kdY" secondAttribute="trailing" id="Plf-vR-yP9"/>
                             <constraint firstItem="zvT-Sv-c7C" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="YaG-eX-TxR"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="zvT-Sv-c7C" secondAttribute="bottom" id="b4b-QI-w6y"/>
+                            <constraint firstAttribute="bottom" secondItem="zvT-Sv-c7C" secondAttribute="bottom" id="b4b-QI-w6y"/>
                             <constraint firstItem="qZT-5U-kdY" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="hRR-Bg-a1S"/>
                             <constraint firstAttribute="trailing" secondItem="zvT-Sv-c7C" secondAttribute="trailing" id="qit-kj-Cp9"/>
                         </constraints>
